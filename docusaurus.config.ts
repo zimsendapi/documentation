@@ -55,7 +55,6 @@ const config: Config = {
             outputDir: "docs/api-reference",
             sidebarOptions: {
               groupPathsBy: "tag",
-              categoryLinkSource: "tag",
             },
           },
         },

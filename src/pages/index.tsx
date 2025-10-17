@@ -19,13 +19,13 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/guides/quickstart">
+            to="/guides/quickstart">
             Démarrer en 5 minutes
             <Rocket className="button-icon" size={20} />
           </Link>
           <Link
             className="button button--outline button--lg margin-left--md"
-            to="/docs/api-reference"
+            to="/api-reference/api-overview"
             style={{color: 'white', borderColor: 'white'}}>
             Explorer l'API
             <Radio className="button-icon" size={20} />
@@ -103,7 +103,7 @@ export default function Home(): ReactNode {
                   <li>Connectez votre téléphone Android</li>
                 </ol>
                 <p>Et voilà ! Vous pouvez envoyer des SMS via l'API.</p>
-                <Link to="/docs/guides/quickstart" className="button button--primary">
+                <Link to="/guides/quickstart" className="button button--primary">
                   Voir le guide complet
                   <ArrowRight className="button-icon" size={20} />
                 </Link>
@@ -140,7 +140,7 @@ export default function Home(): ReactNode {
                   </div>
                   <Heading as="h3">Authentification 2FA</Heading>
                   <p>Envoyez des codes OTP pour sécuriser vos connexions utilisateur</p>
-                  <Link to="/docs/guides/otp">
+                  <Link to="/guides/otp">
                     En savoir plus
                     <ArrowRight className="button-icon" size={16} />
                   </Link>
@@ -153,7 +153,7 @@ export default function Home(): ReactNode {
                   </div>
                   <Heading as="h3">Notifications</Heading>
                   <p>Alertez vos utilisateurs en temps réel (commandes, livraisons, alertes)</p>
-                  <Link to="/docs/guides/sending-sms">
+                  <Link to="/guides/sending-sms">
                     En savoir plus
                     <ArrowRight className="button-icon" size={16} />
                   </Link>
@@ -166,7 +166,7 @@ export default function Home(): ReactNode {
                   </div>
                   <Heading as="h3">Marketing</Heading>
                   <p>Envoyez des campagnes SMS en masse à vos clients</p>
-                  <Link to="/docs/guides/sending-sms">
+                  <Link to="/guides/sending-sms">
                     En savoir plus
                     <ArrowRight className="button-icon" size={16} />
                   </Link>
@@ -188,10 +188,10 @@ export default function Home(): ReactNode {
                     Guides
                   </Heading>
                   <ul style={{listStyle: 'none', padding: 0}}>
-                    <li><Link to="/docs/guides/quickstart">Quick Start</Link></li>
-                    <li><Link to="/docs/guides/authentication">Authentification</Link></li>
-                    <li><Link to="/docs/guides/sending-sms">Envoyer des SMS</Link></li>
-                    <li><Link to="/docs/guides/otp">Système OTP</Link></li>
+                    <li><Link to="/guides/quickstart">Quick Start</Link></li>
+                    <li><Link to="/guides/authentication">Authentification</Link></li>
+                    <li><Link to="/guides/sending-sms">Envoyer des SMS</Link></li>
+                    <li><Link to="/guides/otp">Système OTP</Link></li>
                   </ul>
                 </div>
               </div>
@@ -202,9 +202,9 @@ export default function Home(): ReactNode {
                     API Reference
                   </Heading>
                   <ul style={{listStyle: 'none', padding: 0}}>
-                    <li><Link to="/docs/api-reference">Documentation complète</Link></li>
-                    <li><Link to="/docs/api-reference/envoyer-un-sms">Envoyer un SMS</Link></li>
-                    <li><Link to="/docs/api-reference/envoyer-des-sms-en-masse">Envoi en masse</Link></li>
+                    <li><Link to="/api-reference/api-overview">Documentation complète</Link></li>
+                    <li><Link to="/api-reference/envoyer-un-sms">Envoyer un SMS</Link></li>
+                    <li><Link to="/api-reference/envoyer-des-sms-en-masse">Envoi en masse</Link></li>
                   </ul>
                 </div>
               </div>
@@ -215,8 +215,8 @@ export default function Home(): ReactNode {
                     Webhooks
                   </Heading>
                   <ul style={{listStyle: 'none', padding: 0}}>
-                    <li><Link to="/docs/webhooks/overview">Configuration</Link></li>
-                    <li><Link to="/docs/webhooks/events">Événements</Link></li>
+                    <li><Link to="/webhooks/overview">Configuration</Link></li>
+                    <li><Link to="/webhooks/events">Événements</Link></li>
                   </ul>
                 </div>
               </div>
@@ -227,10 +227,10 @@ export default function Home(): ReactNode {
                     SDKs
                   </Heading>
                   <ul style={{listStyle: 'none', padding: 0}}>
-                    <li><Link to="/docs/sdks/nodejs">Node.js</Link></li>
-                    <li><Link to="/docs/sdks/python">Python</Link></li>
-                    <li><Link to="/docs/sdks/php">PHP</Link></li>
-                    <li><Link to="/docs/faq">FAQ</Link></li>
+                    <li><Link to="/sdks/nodejs">Node.js</Link></li>
+                    <li><Link to="/sdks/python">Python</Link></li>
+                    <li><Link to="/sdks/php">PHP</Link></li>
+                    <li><Link to="/faq">FAQ</Link></li>
                   </ul>
                 </div>
               </div>
@@ -253,7 +253,7 @@ export default function Home(): ReactNode {
               </Link>
               <Link
                 className="button button--secondary button--lg margin-left--md"
-                to="/docs/guides/quickstart">
+                to="/guides/quickstart">
                 Lire la documentation
                 <Book className="button-icon" size={20} />
               </Link>

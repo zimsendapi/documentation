@@ -200,6 +200,45 @@ npm run start -- --locale en
 
 ## 🚀 Déploiement
 
+### VPS avec Nginx (Recommandé)
+
+Consultez le guide complet dans [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+**Déploiement rapide :**
+
+```bash
+# 1. Build local
+npm run build
+
+# 2. Déployer avec le script
+./deploy.sh user@votre-vps.com
+
+# Ou manuellement avec rsync
+rsync -avz --delete build/ user@votre-vps.com:/var/www/docs.zimsend.com/
+```
+
+**Configuration Nginx :**
+
+```bash
+# Sur le VPS
+sudo cp nginx.conf.example /etc/nginx/sites-available/docs.zimsend.com
+sudo ln -s /etc/nginx/sites-available/docs.zimsend.com /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+
+# SSL avec Let's Encrypt
+sudo certbot --nginx -d docs.zimsend.com
+```
+
+### GitHub Actions (Déploiement automatique)
+
+Le workflow `.github/workflows/deploy.yml` déploie automatiquement à chaque push sur `main`.
+
+**Configuration requise dans GitHub Secrets :**
+- `VPS_HOST` : Adresse IP ou domaine du VPS
+- `VPS_USERNAME` : Nom d'utilisateur SSH
+- `VPS_SSH_KEY` : Clé privée SSH
+- `VPS_PORT` : Port SSH (optionnel, défaut: 22)
+
 ### GitHub Pages
 
 ```bash

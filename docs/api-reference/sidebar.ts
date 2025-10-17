@@ -4,14 +4,14 @@ const sidebar: SidebarsConfig = {
   apisidebar: [
     {
       type: "doc",
-      id: "api-reference/zimsend-api",
+      id: "api-reference/api-overview",
     },
     {
       type: "category",
       label: "SMS",
       link: {
         type: "doc",
-        id: "api-reference/sms",
+        id: "api-reference/sms-overview",
       },
       items: [
         {
@@ -57,7 +57,7 @@ const sidebar: SidebarsConfig = {
       label: "OTP",
       link: {
         type: "doc",
-        id: "api-reference/otp",
+        id: "api-reference/otp-overview",
       },
       items: [
         {
@@ -79,7 +79,7 @@ const sidebar: SidebarsConfig = {
       label: "Webhooks",
       link: {
         type: "doc",
-        id: "api-reference/webhooks",
+        id: "api-reference/webhooks-overview",
       },
       items: [
         {

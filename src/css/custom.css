@@ -1,0 +1,472 @@
+/**
+ * Custom CSS for ZimSend Documentation
+ * Stripe-like dark blue code theme
+ */
+
+/* Import Ubuntu font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #2e8555;
+  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #205d3b;
+  --ifm-color-primary-light: #33925d;
+  --ifm-color-primary-lighter: #359962;
+  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-code-font-size: 81%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'Ubuntu', system-ui, -apple-system, sans-serif;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #1a8870;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary-lightest: #4fddbf;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   STRIPE-LIKE DARK BLUE CODE THEME
+   ============================================ */
+
+/* Code block container - dark blue background */
+div[class*='codeBlockContainer'],
+div[class*='codeBlock'] {
+  background: #0a2540 !important;
+  border-radius: 8px;
+}
+
+/* Pre and code elements */
+pre[class*='prism'],
+code[class*='language-'],
+pre[class*='language-'] {
+  background: #0a2540 !important;
+  color: #ffffff !important;
+  text-shadow: none !important;
+  font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace !important;
+}
+
+/* Inline code - same dark blue background as code blocks */
+code:not([class*='language-']) {
+  background-color: #0a2540 !important;
+  color: #00d4ff !important;
+  padding: 2px 6px !important;
+  border-radius: 3px !important;
+  border: none !important;
+  font-family: 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace !important;
+  font-weight: 500 !important;
+}
+
+/* Syntax highlighting colors - Stripe style */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  /* Gris lisible sur fond bleu foncé */
+  color: #9ba3af !important;
+}
+
+.token.punctuation {
+  /* Gris clair pour une meilleure lisibilité */
+  color: #c7d1e0 !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.plain,
+.token.symbol {
+  color: #c7d1e0 !important;
+}
+
+.token.template-string.interpolation {
+  color: #a8e1ff !important;
+}
+
+
+.token.parameter {
+  color: #FBB5B2 !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #3ecf8e !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #a8e1ff !important;
+  background: transparent !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #00d4ff !important;
+}
+
+.token.function,
+.token.class-name {
+  color: #ffd60a !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #e3e8ee !important;
+}
+
+/* Couleur par défaut du texte dans les blocs de code (quand non stylé par Prism) */
+.prism-code,
+.theme-code-block code,
+pre[class*='prism'] code {
+  color: #e6edf3 !important; /* gris bleuté très lisible */
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.deleted {
+  color: #ff6b6b !important;
+}
+
+/* ============================================
+   TABS STYLING - Stripe-like
+   ============================================ */
+
+.tabs-container {
+  background: transparent !important;
+}
+
+.tabs {
+  border-bottom: 1px solid rgba(227, 232, 238, 0.1) !important;
+  background: transparent !important;
+  margin-bottom: 0 !important;
+}
+
+.tabs__item {
+  color: #8892a6 !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  background: transparent !important;
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.tabs__item:hover {
+  color: #e3e8ee !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-bottom-color: transparent !important;
+}
+
+.tabs__item--active {
+  color: #16A348 !important;
+  border-bottom-color: #16A348 !important;
+  background: transparent !important;
+}
+
+/* Tab content should have dark blue background */
+.tab-content {
+  background: #0a2540 !important;
+}
+
+/* ============================================
+   CODE BLOCK BUTTONS
+   ============================================ */
+
+button[class*='copyButton'],
+button[class*='clean-btn'] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #e3e8ee !important;
+  border-radius: 4px !important;
+}
+
+button[class*='copyButton']:hover,
+button[class*='clean-btn']:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* ============================================
+   CODE BLOCK TITLE/LANGUAGE
+   ============================================ */
+
+div[class*='codeBlockTitle'] {
+  background: #0a2540 !important;
+  color: #8892a6 !important;
+  border-bottom: 1px solid rgba(227, 232, 238, 0.1) !important;
+}
+
+/* ============================================
+   LINE NUMBERS
+   ============================================ */
+
+.prism-code .token-line::before {
+  color: #6b7786 !important;
+}
+
+/* ============================================
+   HIGHLIGHTED LINES
+   ============================================ */
+
+.theme-code-block-highlighted-line {
+  background-color: rgba(0, 212, 255, 0.1) !important;
+  display: block;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+  border-left: 3px solid #00d4ff;
+}
+
+/* ============================================
+   API PLAYGROUND (if using OpenAPI theme)
+   ============================================ */
+
+.openapi-explorer__request-container {
+  background: #0a2540 !important;
+}
+
+.openapi-explorer__request-body-container {
+  background: #0a2540 !important;
+}
+
+/* ============================================
+   HOMEPAGE ICONS AND ANIMATIONS
+   ============================================ */
+
+/* Feature Cards */
+.feature-card {
+  padding: 2rem;
+  height: 100%;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--ifm-color-primary-lighter);
+}
+
+[data-theme='dark'] .feature-card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Feature Icons */
+.feature-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon-wrapper {
+  transform: scale(1.1);
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+}
+
+/* Use Case Cards */
+.use-case-card {
+  padding: 1.5rem;
+  height: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  transition: all 0.3s ease;
+  background: var(--ifm-card-background-color);
+}
+
+.use-case-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+[data-theme='dark'] .use-case-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.use-case-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.use-case-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Button Icons */
+.button-icon {
+  margin-left: 0.5rem;
+  display: inline-block;
+  transition: transform 0.2s ease;
+  vertical-align: middle;
+}
+
+.button:hover .button-icon {
+  transform: translateX(4px);
+}
+
+.button-icon-left {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+/* Resource Section Icons */
+.resource-icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .feature-icon-wrapper {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .feature-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .use-case-icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .use-case-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .feature-card {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .use-case-card {
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .button-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .resource-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .feature-icon-wrapper {
+    width: 72px;
+    height: 72px;
+  }
+  
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================ */
+
+/* Focus visible for keyboard navigation */
+.feature-card:focus-within,
+.use-case-card:focus-within {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card,
+  .use-case-card,
+  .feature-icon-wrapper,
+  .button-icon {
+    transition: none;
+  }
+  
+  .feature-card:hover,
+  .use-case-card:hover {
+    transform: none;
+  }
+  
+  .feature-card:hover .feature-icon-wrapper {
+    transform: none;
+  }
+  
+  .button:hover .button-icon {
+    transform: none;
+  }
+}
+
+/* Ensure sufficient contrast in dark mode */
+[data-theme='dark'] .feature-card {
+  background-color: var(--ifm-background-surface-color);
+}
+
+[data-theme='dark'] .use-case-card {
+  background-color: var(--ifm-background-surface-color);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .feature-card,
+  .use-case-card {
+    border: 2px solid currentColor;
+  }
+  
+  .feature-icon-wrapper,
+  .use-case-icon-wrapper {
+    border: 1px solid currentColor;
+  }
+}

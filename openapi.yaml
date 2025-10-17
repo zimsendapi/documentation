@@ -1,0 +1,889 @@
+openapi: 3.0.3
+info:
+  title: ZimSend API
+  version: 1.0.0
+  description: |
+    # Bienvenue sur l'API ZimSend
+
+    ZimSend est une API SMS qui vous permet d'envoyer des SMS depuis vos applications en utilisant votre propre téléphone Android comme gateway.
+
+    ## Pourquoi ZimSend ?
+
+    - **Économique** : Pas de frais par SMS, utilisez votre forfait mobile
+    - **Simple** : API REST facile à intégrer
+    - **Fiable** : Webhooks, retry automatique, file d'attente
+    - **Flexible** : Support de plusieurs devices, envoi programmé, OTP intégré
+
+    ## Démarrage rapide
+
+    1. Créez un compte sur [app.zimsend.com](https://app.zimsend.com)
+    2. Générez une clé API
+    3. Connectez votre téléphone Android
+    4. Commencez à envoyer des SMS via l'API
+
+    ## Authentification
+
+    Toutes les requêtes API nécessitent 3 headers :
+    - `X-API-Key` : Votre clé API
+    - `X-Client-ID` : Votre identifiant client
+    - `X-Device-ID` : L'ID du device Android à utiliser
+
+  contact:
+    name: Support ZimSend
+    email: support@zimsend.com
+    url: https://zimsend.com/support
+  license:
+    name: Proprietary
+    url: https://zimsend.com/terms
+
+servers:
+  - url: https://api.zimsend.com/v1
+    description: Production
+  - url: http://localhost:5040/v1
+    description: Développement local (si applicable)
+
+tags:
+  - name: SMS
+    description: Envoi et gestion des SMS
+  - name: OTP
+    description: Codes de vérification à usage unique
+  - name: Webhooks
+    description: Configuration des webhooks pour recevoir des événements
+  - name: Account
+    description: Gestion de votre compte (via dashboard uniquement)
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Clé API générée depuis le dashboard ZimSend
+
+    ClientIdHeader:
+      type: apiKey
+      in: header
+      name: X-Client-ID
+      description: Votre identifiant client unique (visible dans le dashboard)
+
+    DeviceIdHeader:
+      type: apiKey
+      in: header
+      name: X-Device-ID
+      description: ID du device Android à utiliser pour l'envoi
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Invalid API key"
+        code:
+          type: string
+          example: "INVALID_API_KEY"
+        details:
+          type: object
+
+    SmsMessage:
+      type: object
+      properties:
+        message_id:
+          type: string
+          example: "msg_abc123xyz"
+          description: Identifiant unique du message
+        to:
+          type: string
+          example: "+33612345678"
+          description: Numéro du destinataire
+        message:
+          type: string
+          example: "Votre code de vérification est 123456"
+        status:
+          type: string
+          enum: [queued, processing, sent, delivered, failed]
+          example: "delivered"
+        priority:
+          type: integer
+          minimum: 1
+          maximum: 5
+          default: 3
+          example: 3
+          description: "Priorité d'envoi du SMS : 1=très haute (urgent), 2=haute, 3=normale (par défaut), 4=basse, 5=très basse"
+        device_id:
+          type: string
+          example: "dev_xyz789"
+        queued_at:
+          type: string
+          format: date-time
+        sent_at:
+          type: string
+          format: date-time
+          nullable: true
+        delivered_at:
+          type: string
+          format: date-time
+          nullable: true
+        metadata:
+          type: object
+          additionalProperties: true
+
+paths:
+  /sms/send:
+    post:
+      tags:
+        - SMS
+      summary: Envoyer un SMS
+      description: |
+        Envoie un SMS unique via votre device Android.
+
+        **Prérequis** :
+        - Avoir un device Android connecté
+        - Headers d'authentification valides
+
+        Le SMS sera mis en file d'attente et envoyé dès que possible.
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+          DeviceIdHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - to
+                - message
+              properties:
+                to:
+                  type: string
+                  description: Numéro du destinataire au format international (avec +)
+                  example: "+33612345678"
+                message:
+                  type: string
+                  minLength: 1
+                  maxLength: 1000
+                  description: Contenu du SMS (max 1000 caractères)
+                  example: "Votre code de vérification est 123456"
+                priority:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                  default: 3
+                  description: "Priorité d'envoi du SMS : 1=très haute (urgent), 2=haute, 3=normale (par défaut), 4=basse, 5=très basse"
+                  example: 3
+                webhook_url:
+                  type: string
+                  format: uri
+                  description: URL pour recevoir les événements de ce SMS
+                  example: "https://votre-app.com/webhook/sms"
+                metadata:
+                  type: object
+                  additionalProperties: true
+                  description: Métadonnées personnalisées (max 10 clés)
+                  example:
+                    user_id: "user_123"
+                    campaign: "welcome"
+                scheduled_at:
+                  type: string
+                  format: date-time
+                  description: Date/heure d'envoi programmé (optionnel)
+                  example: "2024-12-31T23:59:59Z"
+                retry_attempts:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                  default: 3
+                  description: Nombre de tentatives en cas d'échec
+                  example: 3
+            examples:
+              simple:
+                summary: SMS simple
+                value:
+                  to: "+33612345678"
+                  message: "Bonjour depuis ZimSend !"
+              with_priority:
+                summary: SMS avec priorité haute
+                value:
+                  to: "+33612345678"
+                  message: "Alerte importante : votre compte a été modifié"
+                  priority: 5
+              with_metadata:
+                summary: SMS avec métadonnées
+                value:
+                  to: "+33612345678"
+                  message: "Votre commande #12345 est confirmée"
+                  metadata:
+                    order_id: "12345"
+                    customer_id: "cust_789"
+      responses:
+        '202':
+          description: SMS mis en file d'attente avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message_id:
+                    type: string
+                    example: "msg_abc123xyz"
+                  status:
+                    type: string
+                    example: "queued"
+                  queued_at:
+                    type: string
+                    format: date-time
+                  priority:
+                    type: integer
+                    example: 3
+                  device_id:
+                    type: string
+                    example: "dev_xyz789"
+        '400':
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentification invalide
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Invalid API key"
+                code: "INVALID_API_KEY"
+        '429':
+          description: Limite de quota atteinte
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Daily SMS limit reached"
+                code: "QUOTA_EXCEEDED"
+
+  /sms/send-bulk:
+    post:
+      tags:
+        - SMS
+      summary: Envoyer des SMS en masse
+      description: |
+        Envoie plusieurs SMS en une seule requête.
+
+        **Limites** :
+        - Maximum 1000 messages par requête
+        - Tous les messages utilisent le même device
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+          DeviceIdHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - messages
+              properties:
+                messages:
+                  type: array
+                  minItems: 1
+                  maxItems: 1000
+                  items:
+                    type: object
+                    required:
+                      - to
+                      - message
+                    properties:
+                      to:
+                        type: string
+                        example: "+33612345678"
+                      message:
+                        type: string
+                        example: "Votre message ici"
+                      metadata:
+                        type: object
+                        additionalProperties: true
+                      priority:
+                        type: integer
+                        minimum: 1
+                        maximum: 5
+                        description: "Priorité d'envoi du SMS : 1=très haute (urgent), 2=haute, 3=normale (par défaut), 4=basse, 5=très basse"
+                priority:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+                  default: 3
+                  description: "Priorité par défaut pour tous les messages : 1=très haute (urgent), 2=haute, 3=normale (par défaut), 4=basse, 5=très basse"
+                webhook_url:
+                  type: string
+                  format: uri
+            examples:
+              marketing:
+                summary: Campagne marketing
+                value:
+                  messages:
+                    - to: "+33612345678"
+                      message: "🎉 Promo -20% ce weekend !"
+                    - to: "+33698765432"
+                      message: "🎉 Promo -20% ce weekend !"
+                    - to: "+33687654321"
+                      message: "🎉 Promo -20% ce weekend !"
+                  priority: 2
+                  webhook_url: "https://votre-app.com/webhook"
+      responses:
+        '202':
+          description: Messages mis en file d'attente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  batch_id:
+                    type: string
+                    example: "batch_abc123"
+                  total_messages:
+                    type: integer
+                    example: 100
+                  queued_messages:
+                    type: integer
+                    example: 100
+                  failed_messages:
+                    type: integer
+                    example: 0
+                  message_ids:
+                    type: array
+                    items:
+                      type: string
+                    example: ["msg_1", "msg_2", "msg_3"]
+
+  /sms/send-otp:
+    post:
+      tags:
+        - OTP
+      summary: Générer et envoyer un code OTP
+      description: |
+        Génère un code de vérification unique et l'envoie par SMS.
+
+        Le code est stocké temporairement et peut être vérifié avec `/sms/verify-otp`.
+
+        **Cas d'usage** :
+        - Authentification 2FA
+        - Vérification de numéro de téléphone
+        - Réinitialisation de mot de passe
+        - Validation de transaction
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+          DeviceIdHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - to
+                - purpose
+              properties:
+                to:
+                  type: string
+                  description: Numéro de téléphone du destinataire
+                  example: "+33612345678"
+                purpose:
+                  type: string
+                  enum: [verification, login, transaction, registration]
+                  description: Type de vérification
+                  example: "verification"
+                code_length:
+                  type: integer
+                  minimum: 4
+                  maximum: 8
+                  default: 6
+                  description: Longueur du code OTP
+                  example: 6
+                expiry_minutes:
+                  type: integer
+                  minimum: 1
+                  maximum: 30
+                  default: 10
+                  description: Durée de validité en minutes
+                  example: 10
+                template:
+                  type: string
+                  description: "Template personnalisé (utilisez {code} pour le code)"
+                  example: "Votre code ZimSend est {code}. Valide 10 min."
+                webhook_url:
+                  type: string
+                  format: uri
+            examples:
+              2fa:
+                summary: Authentification 2FA
+                value:
+                  to: "+33612345678"
+                  purpose: "login"
+                  code_length: 6
+                  expiry_minutes: 5
+              verification:
+                summary: Vérification de numéro
+                value:
+                  to: "+33612345678"
+                  purpose: "verification"
+                  template: "Votre code de vérification est {code}"
+      responses:
+        '202':
+          description: OTP généré et SMS en file d'attente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  otp_id:
+                    type: string
+                    example: "otp_abc123"
+                    description: ID de l'OTP pour la vérification
+                  message_id:
+                    type: string
+                    example: "msg_xyz789"
+                  expires_at:
+                    type: string
+                    format: date-time
+                  phone_masked:
+                    type: string
+                    example: "+336****5678"
+                    description: Numéro masqué pour affichage
+                  code_length:
+                    type: integer
+                    example: 6
+
+  /sms/verify-otp:
+    post:
+      tags:
+        - OTP
+      summary: Vérifier un code OTP
+      description: |
+        Vérifie qu'un code OTP est valide et non expiré.
+
+        **Important** : Un code OTP ne peut être vérifié qu'une seule fois.
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - otp_id
+                - code
+              properties:
+                otp_id:
+                  type: string
+                  description: ID de l'OTP reçu lors de l'envoi
+                  example: "otp_abc123"
+                code:
+                  type: string
+                  minLength: 4
+                  description: Code OTP à vérifier
+                  example: "123456"
+                phone:
+                  type: string
+                  description: Numéro de téléphone (optionnel, pour sécurité supplémentaire)
+                  example: "+33612345678"
+      responses:
+        '200':
+          description: Vérification réussie
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "OTP verified successfully"
+                  verified_at:
+                    type: string
+                    format: date-time
+        '400':
+          description: Code invalide ou expiré
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Invalid or expired OTP"
+                  code:
+                    type: string
+                    example: "INVALID_OTP"
+
+  /sms/status/{message_id}:
+    get:
+      tags:
+        - SMS
+      summary: Obtenir le statut d'un SMS
+      description: Récupère les détails et le statut actuel d'un SMS envoyé
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "msg_abc123"
+      responses:
+        '200':
+          description: Statut du message
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmsMessage'
+
+  /sms/history:
+    get:
+      tags:
+        - SMS
+      summary: Historique des SMS
+      description: Liste paginée de tous vos SMS envoyés avec filtres
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+          example: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+            maximum: 100
+          example: 50
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [queued, processing, sent, delivered, failed]
+          example: "delivered"
+        - name: device_id
+          in: query
+          schema:
+            type: string
+          example: "dev_xyz789"
+        - name: from_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+          example: "2024-01-01T00:00:00Z"
+        - name: to_date
+          in: query
+          schema:
+            type: string
+            format: date-time
+          example: "2024-12-31T23:59:59Z"
+      responses:
+        '200':
+          description: Liste des messages
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SmsMessage'
+                  pagination:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      limit:
+                        type: integer
+                      total:
+                        type: integer
+                      pages:
+                        type: integer
+
+  /sms/{message_id}/resend:
+    post:
+      tags:
+        - SMS
+      summary: Renvoyer un SMS échoué
+      description: Remet en file d'attente un SMS qui a échoué
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: SMS remis en file d'attente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message_id:
+                    type: string
+                  status:
+                    type: string
+                    example: "queued"
+
+  /sms/{message_id}:
+    delete:
+      tags:
+        - SMS
+      summary: Annuler un SMS programmé
+      description: Annule un SMS qui n'a pas encore été envoyé
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      parameters:
+        - name: message_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: SMS annulé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message_id:
+                    type: string
+                  status:
+                    type: string
+                    example: "cancelled"
+
+  /webhooks/configure:
+    post:
+      tags:
+        - Webhooks
+      summary: Configurer un webhook
+      description: |
+        Configure une URL pour recevoir des notifications d'événements.
+
+        **Événements disponibles** :
+        - `sms.sent` - SMS envoyé par le device
+        - `sms.delivered` - SMS livré avec succès
+        - `sms.failed` - Échec d'envoi
+        - `device.connected` - Device connecté
+        - `device.disconnected` - Device déconnecté
+
+        **Sécurité** : Chaque webhook inclut une signature HMAC dans le header `X-Webhook-Signature`
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - url
+                - events
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: URL de votre endpoint webhook (doit être HTTPS en production)
+                  example: "https://votre-app.com/webhook"
+                events:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: string
+                  example: ["sms.sent", "sms.delivered", "sms.failed"]
+                secret:
+                  type: string
+                  description: Clé secrète personnalisée (générée auto si non fournie)
+      responses:
+        '200':
+          description: Webhook configuré
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_id:
+                    type: string
+                    example: "wh_abc123"
+                  url:
+                    type: string
+                    example: "https://votre-app.com/webhook"
+                  events:
+                    type: array
+                    items:
+                      type: string
+                  secret:
+                    type: string
+                    description: "IMPORTANT : Sauvegardez cette clé, elle ne sera plus affichée"
+                    example: "whsec_xxxxxxxxxxxxxxxx"
+                  status:
+                    type: string
+                    example: "active"
+
+  /webhooks:
+    get:
+      tags:
+        - Webhooks
+      summary: Liste des webhooks
+      description: Récupère tous vos webhooks configurés
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      responses:
+        '200':
+          description: Liste des webhooks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhooks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        webhook_id:
+                          type: string
+                        url:
+                          type: string
+                        events:
+                          type: array
+                          items:
+                            type: string
+                        status:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+
+  /webhooks/logs:
+    get:
+      tags:
+        - Webhooks
+      summary: Logs des webhooks
+      description: Historique des appels webhook avec statuts de réponse
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        '200':
+          description: Logs des webhooks
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  logs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        log_id:
+                          type: string
+                        webhook_id:
+                          type: string
+                        event:
+                          type: string
+                        url:
+                          type: string
+                        response_status:
+                          type: integer
+                        response_time_ms:
+                          type: integer
+                        success:
+                          type: boolean
+                        attempt:
+                          type: integer
+                        timestamp:
+                          type: string
+                          format: date-time
+
+  /webhooks/{webhook_id}/test:
+    post:
+      tags:
+        - Webhooks
+      summary: Tester un webhook
+      description: Envoie un événement de test à votre webhook
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      parameters:
+        - name: webhook_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Test envoyé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Test webhook sent successfully"
+                  response_status:
+                    type: integer
+                    example: 200
+
+  /webhooks/{webhook_id}:
+    delete:
+      tags:
+        - Webhooks
+      summary: Supprimer un webhook
+      description: Supprime un webhook configuré
+      security:
+        - ApiKeyAuth: []
+          ClientIdHeader: []
+      parameters:
+        - name: webhook_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Webhook supprimé

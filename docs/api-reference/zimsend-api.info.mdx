@@ -1,0 +1,178 @@
+---
+id: zimsend-api
+title: "ZimSend API"
+description: "# Bienvenue sur l'API ZimSend"
+sidebar_label: Introduction
+sidebar_position: 0
+hide_title: true
+custom_edit_url: null
+---
+
+import ApiLogo from "@theme/ApiLogo";
+import Heading from "@theme/Heading";
+import SchemaTabs from "@theme/SchemaTabs";
+import TabItem from "@theme/TabItem";
+import Export from "@theme/ApiExplorer/Export";
+
+<span
+  className={"theme-doc-version-badge badge badge--secondary"}
+  children={"Version: 1.0.0"}
+>
+</span>
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"ZimSend API"}
+>
+</Heading>
+
+
+
+# Bienvenue sur l'API ZimSend
+
+ZimSend est une API SMS qui vous permet d'envoyer des SMS depuis vos applications en utilisant votre propre téléphone Android comme gateway.
+
+## Pourquoi ZimSend ?
+
+- **Économique** : Pas de frais par SMS, utilisez votre forfait mobile
+- **Simple** : API REST facile à intégrer
+- **Fiable** : Webhooks, retry automatique, file d'attente
+- **Flexible** : Support de plusieurs devices, envoi programmé, OTP intégré
+
+## Démarrage rapide
+
+1. Créez un compte sur [app.zimsend.com](https://app.zimsend.com)
+2. Générez une clé API
+3. Connectez votre téléphone Android
+4. Commencez à envoyer des SMS via l'API
+
+## Authentification
+
+Toutes les requêtes API nécessitent 3 headers :
+- `X-API-Key` : Votre clé API
+- `X-Client-ID` : Votre identifiant client
+- `X-Device-ID` : L'ID du device Android à utiliser
+
+
+<div
+  style={{"marginBottom":"2rem"}}
+>
+  <Heading
+    id={"authentication"}
+    as={"h2"}
+    className={"openapi-tabs__heading"}
+    children={"Authentication"}
+  >
+  </Heading><SchemaTabs
+    className={"openapi-tabs__security-schemes"}
+  >
+    <TabItem
+      label={"API Key: ApiKeyAuth"}
+      value={"ApiKeyAuth"}
+    >
+      
+      
+      Clé API générée depuis le dashboard ZimSend
+      
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Security Scheme Type:
+              </th><td>
+                apiKey
+              </td>
+            </tr><tr>
+              <th>
+                Header parameter name:
+              </th><td>
+                X-API-Key
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </TabItem><TabItem
+      label={"API Key: ClientIdHeader"}
+      value={"ClientIdHeader"}
+    >
+      
+      
+      Votre identifiant client unique (visible dans le dashboard)
+      
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Security Scheme Type:
+              </th><td>
+                apiKey
+              </td>
+            </tr><tr>
+              <th>
+                Header parameter name:
+              </th><td>
+                X-Client-ID
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </TabItem><TabItem
+      label={"API Key: DeviceIdHeader"}
+      value={"DeviceIdHeader"}
+    >
+      
+      
+      ID du device Android à utiliser pour l'envoi
+      
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th>
+                Security Scheme Type:
+              </th><td>
+                apiKey
+              </td>
+            </tr><tr>
+              <th>
+                Header parameter name:
+              </th><td>
+                X-Device-ID
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </TabItem>
+  </SchemaTabs>
+</div><div
+  style={{"display":"flex","flexDirection":"column","marginBottom":"var(--ifm-paragraph-margin-bottom)"}}
+>
+  <h3
+    style={{"marginBottom":"0.25rem"}}
+  >
+    Contact
+  </h3><span>
+    Support ZimSend: [support@zimsend.com](mailto:support@zimsend.com)
+  </span><span>
+    URL: [https://zimsend.com/support](https://zimsend.com/support)
+  </span>
+</div><div
+  style={{"marginBottom":"var(--ifm-paragraph-margin-bottom)"}}
+>
+  <h3
+    style={{"marginBottom":"0.25rem"}}
+  >
+    License
+  </h3><a
+    href={"https://zimsend.com/terms"}
+  >
+    Proprietary
+  </a>
+</div>
+      

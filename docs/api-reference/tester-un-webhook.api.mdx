@@ -1,0 +1,71 @@
+---
+id: tester-un-webhook
+title: "Tester un webhook"
+description: "Envoie un événement de test à votre webhook"
+sidebar_label: "Tester un webhook"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVsly20YQ/ZUp6KClKJKynQsviSLZiSpJmWUqS0VU2UOgSY4FzIxmoUWh+AH5i1yZ38CPpXsGIEFRdhYdRADTy5teXneZOD6zyeAm+RUmc6XubHLbSTKwqRHaCSWTQfJaLpQA5iWr1otqLaEA6VgGzIF1rPqTLZQzwD5FA0knsZB6I9wSzZbJuRY/wPLcuzm+ou2LXKD6VfY98AwMfVvhV80NL8CBsUFJ4gt6rk2+FxlaFYRFc7TTSQzce2EgSwbOeECP6RwKngzKxC01aVpnhJwlK7JtwGolLVg6f9Hv08/uDa/pIoDXXFZrtJ4q6RAjyXGtc5Fykut9tCRc7jtTk4+QOlTURmkwTkRXBVjLZ7CPqpPAAy90Do3r+p7MUmCtT1PUnPo8XyarLfz31nHnbcucQJgzjGHLHl5vFf866N/NVUZBUzago9gNkl7tzfbKbXxXPUpmyJ1ZNFnwJkf5uXPaDno9rkX3URSIMeumqugtzpKnlTI0KvNpeFl12vqonquU53NEMviq/6r/nPYllhfkSutYYEGBHVnB6iRMcjhOKKFNfY0oETHW7SrbxIeHj03pzGPBdZri+u30fHh1GgV2gVzk1ZrhIZthtVdrU60By117YVmOT9zOJ4qbjP0uihFGg5L0tKr/NYaoeHp1uYfil9BVIsNjMRUcI5IGWWxEce+BHS2EFZMASO4COyZEl7AQKfwPRFHxOURXlyzzGAk6Z+cyM0pk1P/eiVxg4TCtvGH5IXWSSKgEhZyq4Fq4UO11xCi4aJ0KLVo+6/a7/T1/B+xbvPACJN7WBsuUlNrGWI5lY456yEsIORv9NGJIDkhK3jLsRuwClgVIS0SIDoJEnc6FsqzV4hZJoL4NxTvyGjU1/rhqjWWh50pu745tUACbcQef+LJLiA4O2BCDcO+VaICyr+nglJ2cVH8gs6iCsndywgZsyC3R6NRwhIIMSMg6TTQfa/dTZaZcOFaoicghGhoJ6vZgg6787vXomk15iueUDqSFaj0zYKLwG0GdE4Qbju8wA84sGfdOFXhzBNRhU1LPDrkj7qsdvcnhQTTaI6+1MoH5de6tAG9sXQ1oMSSdgjVDJi+qdYe9vR42WKp1HRzs8YIbg7TIDBZiBvT9rMsuqMkeacZgTLWL+b7B1LQp5/Zoy0U7B8dj+aLLvovdGswANkts4rF8ieaVlEjRm6A+k8yxfEVymFCZohzG8WnNLASPJVjfhdgmNmesHvp8rTwSKXajZTSjqr/ojXKEyIjVBQWXvWSx7SwbUJw/bKjoA4Y59v0Wfjjf0MRWYp8ZatlNA5Psj4f/1LVjWY88noaRVxNBk+2G5HDIFFwQodt48k0rAXi6Oyzag6KWJ1LCRgMcZS03Q+ouAY6b5ReN4GpQ2MApNM0KLls2aIZinrB4tjvIDpOU25H+37eZmjYdPLiezrmg2RaBlvVIvWkWFYvig52lJUxVHFk0+EiwLCfcws8mX63oMzaeWca9aMFNaNQweTMkIHzG4T3luYUvXOfoXb0KHbPPYW14X1KEFzz39IaPdzgFdnas1S1Kz5u9rKwFznEd0a6lurcT0UzeLBvDt6NrFOZ7o/guDJ36gcw/i6s9laN/+k/bxLPiZRnHGYazkY9Hn9XYDLwoTSG6xXXpb09c31E=
+sidebar_class_name: "post api-method"
+info_path: docs/api-reference/zimsend-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Tester un webhook"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/webhooks/{webhook_id}/test"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Envoie un événement de test à votre webhook
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"webhook_id","in":"path","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Test envoyé","content":{"application/json":{"schema":{"type":"object","properties":{"message":{"type":"string","example":"Test webhook sent successfully"},"response_status":{"type":"integer","example":200}}}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

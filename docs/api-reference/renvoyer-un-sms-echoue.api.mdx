@@ -1,0 +1,71 @@
+---
+id: renvoyer-un-sms-echoue
+title: "Renvoyer un SMS échoué"
+description: "Remet en file d'attente un SMS qui a échoué"
+sidebar_label: "Renvoyer un SMS échoué"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVtlS40YU/ZUu8cBSxgZm8uKXhEAWKkmNC5OlAlSmLV3bPUjdTS8KRuUPyF/k1fkN/Vju7ZZsGTOThQcsqe9y7rlbV4njM5sMb5PxD+PkvpdkYFMjtBNKJsPkGgpwDCSbihxYts+dA+mAeclQnj16wTirV+lc+XqV9BILqTfCLdBglZxr8R0szr2b4yuavsgFKl9l3wLPwNC3JX7V3HB0AsYGJYkv6LgAa/kMfhMZWhUERXO000sMoFMDWTJ0xgN6TOdQ8GRYJW6hSdM6I+QsWZJtA1YracHS+dnJGf1sB0hRGCiE3Q0SnaVK0iOpca1zkXJSG3ywpFvt+laTD5A6VNRGaTBORM+dYHZxYgiOO293j3oJPPFC5/Tp0YPHoJfxr4cm3VxlRIuywSGxM0wGtrCDauNvOUAKQGYhNaZsSfYmR+G5c9oOBwOuRf9ZFCTXT1UxKE+Tl3UwMirzaXhZ9rr6qJ6rlOdzhDH87OTtyWval/WqhFxpjdUkHQsK7MBi7URSJzkcJpSvtnzGRGzkrltEa4J4+NhWxjzWU6+tnV+Oz0dXx1FgG8hFXq8YHrJZvZL1ytQrzDdoj+mnzHM7nyhuMvarKMbE2nK3aP81hqh4fHW5g+In5QwwkeGxmAqOjKRBFrtKYJ7ZQSmsmARAchvYISG6hFKk8D8QRcXXEF1dsswjE3TOzmVmlMhY/SfzTuQCC4dp5Q3L90GWSiRUf0JOVXAtXKjPhjEiF61ToUXLp/2T/smOvz32JQZcgsRobbBMSWls3Mk72ZoDS6xAyFk7cErlLcPuosmUBUgLRIgOgkSTzlJZ1mnZ0N4xGuK7DBmgJsUfV6+wLPRcyU3s2AYFsBl38Dtf9AnR3h4bIQmPXokWKPucDo7Z0VH9B04KVVD2jo7YkI24RSBsajhCwQFHyHotm8+N+6kyUy4cK9QE5040NBbU78EGhXz91fiGTXlKcwnTISRinRkwUfhrQZ0ThH+GyVypB9vDYebMgnHvVIGRI6Dei7HW6ObwJFrtsddaGUeQde6tAG9sUw1oMSSdyJrhoC7qVY+9uxm1WOpVQw72eMGNwbHDDBZiBvT9tM8uqMmeaWEgp9rFfN9iaroj5/5gM4u2Dg7v5FmffRO7NZgBbJbYxHfyDZpXUuLIXZP6SjLv5FuSw4TKFOWQx5c1UwoeS7CJhaZNbM5YPfT5RnkH1I2W0Qqq/6I3yhEiQ5qsIHLZGxbbzrIh8fx+PYreI82x7zfww/l6TGwkdidDI7tuYJL9fv+fuvZONiuMp2GFNYOgzXY75HDNFFzQQLfx5ItOAvB0e1l0F0UjT0MJGw1w0XbcjKi7BDhuFp80gpu/sGGm0CoruOzYuG4z1dw3OjeNrYFSbTb1f76yNMPTwZMb6JwL2nARbtVs1dsEtypKDrcuJc1ixa1Fu4+kqmrCLfxo8uWSPmPvmUW8+ZTchF4NyzfDGYTPuLynPLfwiVAOrpvLziH7GNB29EsiueS5pzd8fMBFsHWLWt6j9Ly9eVWNwHmagnYd1Z1rDq3l9WVj9G58g8J8Zxs/hL3TPJD5V3F1F3P0T//pQvGqeFXFjYZ0tvLx6KMa650XpYmie7wu/Q0YwM15
+sidebar_class_name: "post api-method"
+info_path: docs/api-reference/zimsend-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Renvoyer un SMS échoué"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/sms/{message_id}/resend"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Remet en file d'attente un SMS qui a échoué
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"message_id","in":"path","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"202":{"description":"SMS remis en file d'attente","content":{"application/json":{"schema":{"type":"object","properties":{"message_id":{"type":"string"},"status":{"type":"string","example":"queued"}}}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

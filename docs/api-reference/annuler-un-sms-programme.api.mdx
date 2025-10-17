@@ -1,0 +1,71 @@
+---
+id: annuler-un-sms-programme
+title: "Annuler un SMS programmé"
+description: "Annule un SMS qui n'a pas encore été envoyé"
+sidebar_label: "Annuler un SMS programmé"
+hide_title: true
+hide_table_of_contents: true
+api: eJydVkly4zYUvQqKXngoWZK7OxttEsV2J650KqqWM1QsVxoivyS0SQAGQMYySwfILbJVrsGL5X+AlChL3Rm8sE386eH9CWXk+NxGg7to/P04uu9ECdjYCO2EktEgGkqZp8ByyVDMHnPB5DFnmlsGMlYGWLV21Ro/CrWs1lEnshDnRrgleiyjoRbfwXKYuwV+ou/LVIB0N8m3wBMwdLbCU80Nz8CBsd5I4gdGzsBaPoffRIJeBWHRHP10IgMIw0ASDZzJASPGC8h4NCgjt9RkaZ0Rch6tyLcBq5W0YEn+qt+nP7s3pHtxuqWHHyvpECKpca1TEXNS6320pFvux1LTjxA7NNRGaTBOhEgt8Pu4ELLjLrf7ok4ETzzTKR3FXMaQpnjPVfjpoFe3UOgRb5AiXxSVKBlEPZvZXrkNuvKJMEVDaW5S1Fo4p+2g1+NadJ9FZkEm3VhlveIiepn2kVFJHvuPVadtj+apinm6UNYNvui/6R+yvqrWBaRKa8iQS+YN2IkVrKZ0msJpRNlpimVMtAbm2iWzoYf7w6YOFqF6Ok2l/HI+HN2cB4VdIJeYVIZCNq/Wslqbag0sAZ0Ly7CoE24XU8VNwn4V2RjZoNS8LNF/jSEYnt9c7aH4STlsFJGgWMwER0Zir4tdJR5zYCeFsGLqAcldYKeE6AoKEcP/QBQMDyG6uWJJjkyQnA1lYpRIWPUny51IBRYO0yo3LD2mthYRlZ6QM+VDC+ers2aMyEXvVGjB80W33+3vxTtiX+OFC5B4W+s9U1JqHxM5kY07sMQK+Jw1A6dQuWXYW1j9LPGQlogQA3iNOp2FsqzVsDSe6tsQ34XPALUo/sF5hWWhF0pu745tkAGbcwe/82WXEB0dsRGS8Jgr0QBlX5LgnJ2dVX/gnFAZZe/sjA3YCOdhAmxmOELBcUbIOg2bz3X4mTIzLhzL1FSkEByNBXW790FXfn89vmUzHqOc0iEkYp0bMEH5raDO8co/w3Sh1IPtMAPOLBnPncrw5giow2ZknhxzR5OsDvQ2hSfRWI9zrZVxBFmnuRWQG1tXA3r0SSey5jiWs2rdYT/cjhos1bomB3s848bgvGEGCzEBOr/osktqsmdaGMipdiHfd5ia9si5P9nOoh3B6US+6rJvQrd6N4DNEpp4Il+jeyUlDtwNqQeSOZFvSA8TigP0mXh8WTOF4KEE67vQtAnNGaqHjm9V7oC60TJaONVf9EU5QmRIkxVELnvNQttZNiCeP2xG0QekOfT9Fr6Xb8bEVmN/MtS6mwYm3XfH/9S1E1kvMB77BVYPgibbzZDDJZNxQQPdBslXrQSgdHdZtBdFrU9DCRsNcK22woyouwQ4bpafdYJ7PrN+pmjcIRmXLR/htWGa58a2Bl9OlHK7qP/7E6Uenw6eXE+nXNCOC4DLeqHeRbhQUXPQ2uO4rmjpkbAsp9zCjyZdregYm84swwOn4MY3qd+6CQ6fKS3wwYynFj5zhZP39ZvmlH0KXzPzJbFb8DSnL/z3ATfAzmNpdY/ai+aBVdYKwzgG7Vqme68b2sebB8bV9bvr22tU53uL+MGvnPofCnAQWXsnBwT0m94SB9XLMiyz1WqjH0SftNisu6BNJN3jI+lv8bHHMg==
+sidebar_class_name: "delete api-method"
+info_path: docs/api-reference/zimsend-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Annuler un SMS programmé"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/sms/{message_id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Annule un SMS qui n'a pas encore été envoyé
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"message_id","in":"path","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"SMS annulé","content":{"application/json":{"schema":{"type":"object","properties":{"message_id":{"type":"string"},"status":{"type":"string","example":"cancelled"}}}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

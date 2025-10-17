@@ -1,6 +1,6 @@
 # 📚 SMS Gateway - Documentation
 
-Documentation professionnelle et complète pour la plateforme SMS Gateway, construite avec [Docusaurus](https://docusaurus.io/) et intégrant Swagger UI pour l'API Reference.
+Documentation professionnelle et complète pour la plateforme ZimSend, construite avec [Docusaurus](https://docusaurus.io/) et intégrant Swagger UI pour l'API Reference.
 
 ## 🚀 Démarrage Rapide
 
@@ -165,7 +165,7 @@ npm run deploy                      # Déployer (configure selon plateforme)
 
 \```javascript
 // Bloc de code avec syntax highlighting
-const api = 'https://api.smsgateway.com';
+const api = 'https://api.zimsend.com';
 \```
 
 :::tip Conseil
@@ -274,10 +274,9 @@ Cette documentation est sous licence MIT - voir [LICENSE](../LICENSE)
 
 ## 🆘 Support
 
-- **Email**: support@smsgateway.com
-- **Discord**: [Rejoindre](https://discord.gg/smsgateway)
-- **Issues**: [GitHub Issues](https://github.com/sms-gateway/sms-gateway/issues)
+- **Email**: support@zimsende.com
+- **Discord**: [Rejoindre](https://discord.gg/zimsendapi)
 
 ---
 
-**Construit avec ❤️ par l'équipe SMS Gateway**
+**Construit avec ❤️ par Abed Zim**
